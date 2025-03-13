@@ -46,4 +46,20 @@ h5 {
   margin: 20px auto;
 }
 
+#cep, #number {
+  width: 190px;
+}
+
+#numbers{
+  display: flex;
+  gap: 19px;
+}
+
+#text-error{
+  width: 190px;
+}
+
+button {
+  width: 100%;
+}
 

@@ -1,20 +1,20 @@
-import { string, z, ZodError, ZodIssueCode } from 'zod'
+import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 
   /*
    TREINO DE FORMULARIO DO BASICO AO AVANÇADO COM TODOS OS RECURSO ULTILIZADO
-    [x] realizar validação dos campos
-    [x] realizar validação input com borda vermelho
-    [x] realizar o campo nome com as primeiras letras maiuscula
-    [x] realizar value vazio apos envio do form
-    [] realizar mascara do cep
-    [] realizar validação input data
-    [x] realizar validação checkbox
-    [] realizar validação do select
-    [x] realizar novos inputs ao clicar no checkbox
-    [] realizar a busca api e preencher alguns campos com endereço
+    [x] validação dos campos
+    [x] validação input com borda vermelho
+    [x] o campo name com as primeiras letras maiusculas
+    [x] value vazio apos envio do form
+    [] mascara do cep
+    [] validação input data
+    [x] validação checkbox
+    [] validação do select
+    [x] novos inputs ao clicar no checkbox
+    [] a busca api e preencher alguns campos com endereço
     [] separar regra de negocio
   */
 
@@ -91,7 +91,7 @@ export function Form() {
   }))
 
 
-  const { register, handleSubmit, setValue, watch, formState: {errors} } = useForm(
+  const { register, handleSubmit, setValue, watch, formState: {errors, isSubmitting} } = useForm(
     { 
       criteriaMode: 'all',
       mode: 'all',
@@ -109,13 +109,15 @@ export function Form() {
       resolver: zodResolver(dataSchema),
     })
 
-  const onSubmit = (data) => {
+  const  onSubmit = async (data) => {
     setValue('name')
     setValue('email')
     setValue('endereco.cep')
     setValue('endereco.rua')
     setValue('endereco.numero')
     setValue('endereco.complemento')
+
+    await new Promise((resolve) => setTimeout(resolve, 2000))
     setScrem(JSON.stringify(data, null, 2))
   }
 
@@ -152,12 +154,21 @@ export function Form() {
 
           {campo && (
             <>
-              <div className="form-group">
-                <label >CEP</label >
-                <input {...register('endereco.cep')} type="text" className={errors.endereco?.cep ? "form-control border-danger" : "form-control"} placeholder="00000-000"  maxLength='9' />
+              <div className="form-group" id='numbers'>
+                <div>
+                  <label >CEP</label >
+                  <input {...register('endereco.cep')} type="text" className={errors.endereco?.cep ? "form-control border-danger" : "form-control"} placeholder="00000-000"  maxLength='9' id='cep' />
+
+                  {errors.endereco?.cep && <p className='text-danger font-weight-normal' id='text-error'>{errors.endereco?.cep.message}</p>}
+                </div>
+                <div>
+                  <label >Numero</label>
+                  <input {...register('endereco.numero')} type="text" className={errors.endereco?.numero ? "form-control border-danger" : "form-control"} placeholder="Numero" id='number'/>
+
+                  {errors.endereco?.numero && <p className='text-danger font-weight-normal' id='text-error'>{errors.endereco?.numero.message}</p>}
+                </div>
                </div>
           
-              {errors.endereco?.cep && <p className='text-danger font-weight-normal'>{errors.endereco?.cep.message}</p>}
 
               <div className="form-group">
                 <label >Rua</label>
@@ -165,13 +176,6 @@ export function Form() {
               </div>
 
               {errors.endereco?.rua && <p className='text-danger font-weight-normal'>{errors.endereco?.rua.message}</p>}
-
-              <div className="form-group">
-                <label >Numero</label>
-                <input {...register('endereco.numero')} type="text" className={errors.endereco?.numero ? "form-control border-danger" : "form-control"} placeholder="Numero" />
-              </div>
-
-              {errors.endereco?.numero && <p className='text-danger font-weight-normal'>{errors.endereco?.numero.message}</p>}
 
               <div className="form-group">
                 <label >Complemento</label>
@@ -184,7 +188,7 @@ export function Form() {
 
           {/* </ENDEREÇO> */}
 
-          <button type="submit" className="btn btn-primary">Enviar</button>
+          <button type="submit" className="btn btn-primary" disabled={isSubmitting}>{isSubmitting ? 'Loading...' : 'Enviar'}</button>
         </form>
       </main>
       <div id='screm'>{screm}</div>
