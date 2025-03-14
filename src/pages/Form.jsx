@@ -1,7 +1,4 @@
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { useState } from 'react'
+import { useFormField } from '../hooks/useFormField'
 
   /*
    TREINO DE FORMULARIO DO BASICO AO AVANÇADO COM TODOS OS RECURSO ULTILIZADO
@@ -15,114 +12,12 @@ import { useState } from 'react'
     [] validação do select
     [x] novos inputs ao clicar no checkbox
     [] a busca api e preencher alguns campos com endereço
-    [] separar regra de negocio
+    [x] separar regra de negocio
   */
 
 export function Form() {
-  const [screm, setScrem] = useState('')
-
-  const dataSchema = z.object({
-    name: z.string().min(1).trim().transform(value => value.split(' ').map(word => word.slice(0, 1).toLocaleUpperCase() + word.slice(1, word.length)).join(' ')),
-    email: z.string().email(),
-    campo: z.boolean(),
-    endereco: z.object({
-      cep: z.string().optional(),
-      rua: z.string().optional(),
-      numero: z.string().optional(),
-      complemento: z.string().optional()
-    })
-  }).superRefine((value, contexo) => {
-    if(value.campo){
-      if(!value.endereco.cep.length){
-        contexo.addIssue({
-          path: ['endereco.cep'],
-          type: "string",
-          minimum: 1,
-          inclusive: true,
-          message: 'String must contain at least 1 character(s)'
-        })
-      }else if(isNaN(value.endereco.cep)){
-        contexo.addIssue({
-          path: ['endereco.cep'],
-          type: "number",
-          inclusive: true,
-          message: 'Expected number, received string'
-        })
-      }
-      if(!value.endereco.rua.length){
-        contexo.addIssue({
-          path: ['endereco.rua'],
-          type: "string",
-          minimum: 1,
-          inclusive: true,
-          message: 'String must contain at least 1 character(s)'
-        })
-      }
-      if(!value.endereco.numero.length){
-        contexo.addIssue({
-          path: ['endereco.numero'],
-          type: "number",
-          minimum: 1,
-          inclusive: true,
-          message: 'String must contain at least 1 character(s)'
-        })
-      } else if(isNaN(value.endereco.numero)){
-        contexo.addIssue({
-          path: ['endereco.numero'],
-          type: "number",
-          inclusive: true,
-          message: 'Expected number, received string'
-        })
-      }
-      if(!value.endereco.complemento.length){
-        contexo.addIssue({
-          path: ['endereco.complemento'],
-          type: "string",
-          minimum: 1,
-          inclusive: true,
-          message: 'String must contain at least 1 character(s)'
-        })
-      } 
-    }   
-  }).transform(value => ({
-    name: value.name,
-    email: value.email,
-    endereco: value.campo ? value.endereco : '',
-  }))
-
-
-  const { register, handleSubmit, setValue, watch, formState: {errors, isSubmitting} } = useForm(
-    { 
-      criteriaMode: 'all',
-      mode: 'all',
-      defaultValues: {
-        name: '',
-        email: '',
-        campo: false,
-        endereco: {
-          cep: '',
-          rua: '',
-          numero: '',
-          complemento: ''
-        }
-      },
-      resolver: zodResolver(dataSchema),
-    })
-
-  const  onSubmit = async (data) => {
-    setValue('name')
-    setValue('email')
-    setValue('endereco.cep')
-    setValue('endereco.rua')
-    setValue('endereco.numero')
-    setValue('endereco.complemento')
-
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    setScrem(JSON.stringify(data, null, 2))
-  }
-
-  const campo = watch('campo')
-
+  const { screm, register, handleSubmit, errors, isSubmitting, campo, onSubmit } = useFormField()
+  
   return (
     <>
       <main>
