@@ -6,23 +6,23 @@ import { Button } from '../components/Button'
 
   /*
    TREINO DE FORMULARIO DO BASICO AO AVANÇADO COM TODOS OS RECURSO ULTILIZADO
-    [x] validação dos campos
+    [x] validação dos fields
     [x] validação input com borda vermelho
-    [x] o campo name com as primeiras letras maiusculas
+    [x] o field name com as primeiras letras maiusculas
     [x] value vazio apos envio do form
     [x] mascara do cep
     [] validação input data
     [x] validação checkbox
     [] validação do select
     [x] novos inputs ao clicar no checkbox
-    [x] a busca api e preencher alguns campos com endereço
+    [x] a busca api e preencher alguns fields com endereço
     [x] separar regra de negocio
     [] Documentar para posibilitar consultas
     [x] Criar components
   */
 
 export function Form() {
-  const { screm, register, handleSubmit, errors, isSubmitting, campo, onSubmit } = useFormField()
+  const { screm, register, handleSubmit, errors, isSubmitting, field, onSubmit } = useFormField()
   
   return (
     <>
@@ -31,26 +31,26 @@ export function Form() {
             <Input {...register('name')} type='text' errors={errors.name} placeholder='Nome' label='Nome' />
             <Input {...register('email')} type='text' errors={errors.email} placeholder='email@email.com' label='Email' />
 
-          {/* <ENDEREÇO> */}
-            <CheckBox {...register('campo')}  label='Campos Adicionais' />
+          {/* <Street> */}
+            <CheckBox {...register('field')}  label='Campos Adicionais' />
 
-          {campo && (
+          {field && (
             <>
               <div className="form-group" id='numbers'>
                 <div>
-                  <Input {...register('endereco.cep')} type='text' errors={errors.endereco?.cep} placeholder='00000-000' label='CEP' maxLength='9' id='cep'/>
+                  <Input {...register('street.zipCode')} type='text' errors={errors.street?.zipCode} placeholder='00000-000' label='CEP' maxLength='9' id='cep'/>
                 </div>
                 <div>
-                  <Input {...register('endereco.numero')} type='text' errors={errors.endereco?.numero} placeholder='Número' label='Número' id='number'/>
+                  <Input {...register('street.number')} type='text' errors={errors.street?.number} placeholder='Número' label='Número' id='number'/>
                 </div>
                </div>
           
-               <Input {...register('endereco.rua')} type='text' errors={errors.endereco?.rua} placeholder='Endereço' label='Endereço' />
-               <Input {...register('endereco.complemento')} type='text' errors={errors.endereco?.complemento} placeholder='Complemento' label='Complemento' />
+               <Input {...register('street.address')} type='text' errors={errors.street?.address} placeholder='Endereço' label='Endereço' />
+               <Input {...register('street.complement')} type='text' errors={errors.street?.complement} placeholder='Complemento' label='Complemento' />
             </>
           )}
 
-          {/* </ENDEREÇO> */}
+          {/* </Street> */}
 
           <Button disabled={isSubmitting} >{isSubmitting ? 'Loading...' : 'Enviar'}</Button>
         </form>
@@ -58,4 +58,3 @@ export function Form() {
     </>
   )
 }
-

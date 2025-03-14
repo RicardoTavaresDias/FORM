@@ -15,12 +15,12 @@ export function useFormField(){
       defaultValues: {
         name: '',
         email: '',
-        campo: false,
-        endereco: {
-          cep: '',
-          rua: '',
-          numero: '',
-          complemento: ''
+        field: false,
+        street: {
+          zipCode: '',
+          address: '',
+          number: '',
+          complement: ''
         }
       },
       resolver: zodResolver(dataSchema),
@@ -29,35 +29,35 @@ export function useFormField(){
   const  onSubmit = async (data) => {
     setValue('name', '')
     setValue('email', '')
-    setValue('endereco.cep', '')
-    setValue('endereco.rua', '')
-    setValue('endereco.numero', '')
-    setValue('endereco.complemento', '')
+    setValue('street.zipCode', '')
+    setValue('street.address', '')
+    setValue('street.number', '')
+    setValue('street.complement', '')
 
     await new Promise((resolve) => setTimeout(resolve, 2000))
     setScrem(JSON.stringify(data, null, 2))
   }
 
-  const campo = watch('campo')
+  const field = watch('field')
 
   useEffect(() => {
-    async function streetCep(){
-      if(watch('endereco.cep')?.length === 9){
+    async function streetZipCode(){
+      if(watch('street.zipCode')?.length === 9){
         try {
-          const apiCep = await api.get(`/${watch('endereco.cep').replace('-', '')}`)
-          setValue('endereco.rua', apiCep.data.street)
+          const apiZipCode = await api.get(`/${watch('street.zipCode').replace('-', '')}`)
+          setValue('street.address', apiZipCode.data.street)
         } catch (error) {
           console.log(error)
         }
       }
     }
-    streetCep()
-  },[watch('endereco.cep')])
+    streetZipCode()
+  },[watch('street.zipCode')])
 
   useEffect(() => {
-    const cepMask = watch('endereco.cep').replace(/\D/g, '').replace(/(\d{5})(\d)/, '$1-$2')
-    setValue('endereco.cep', cepMask)
-  },[watch('endereco.cep')])
+    const zipCodeMask = watch('street.zipCode').replace(/\D/g, '').replace(/(\d{5})(\d)/, '$1-$2')
+    setValue('street.zipCode', zipCodeMask)
+  },[watch('street.zipCode')])
 
   return {
     screm,
@@ -65,7 +65,7 @@ export function useFormField(){
     handleSubmit,
     errors,
     isSubmitting,
-    campo,
+    field,
     onSubmit
   }
 }

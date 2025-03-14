@@ -4,59 +4,59 @@ export function useShemaForm(){
   const dataSchema = z.object({
       name: z.string().min(1).trim().transform(value => value.split(' ').map(word => word.slice(0, 1).toLocaleUpperCase() + word.slice(1, word.length)).join(' ')),
       email: z.string().email(),
-      campo: z.boolean(),
-      endereco: z.object({
-        cep: z.string().optional(),
-        rua: z.string().optional(),
-        numero: z.string().optional(),
-        complemento: z.string().optional()
+      field: z.boolean(),
+      street: z.object({
+        zipCode: z.string().optional(),
+        address: z.string().optional(),
+        number: z.string().optional(),
+        complement: z.string().optional()
       })
     }).superRefine((value, contexo) => {
-      if(value.campo){
-        if(!value.endereco.cep.length){
+      if(value.field){
+        if(!value.street.zipCode.length){
           contexo.addIssue({
-            path: ['endereco.cep'],
+            path: ['street.zipCode'],
             type: "string",
             minimum: 1,
             inclusive: true,
             message: 'String must contain at least 1 number(s)'
           })
-        }else if(value.endereco.cep.length < 9){
+        }else if(value.street.zipCode.length < 9){
           contexo.addIssue({
-            path: ['endereco.cep'],
+            path: ['street.zipCode'],
             type: "string",
             inclusive: true,
             message: 'Number must contain at least 9 character(s)'
           })
         }
-        if(!value.endereco.rua.length){
+        if(!value.street.address.length){
           contexo.addIssue({
-            path: ['endereco.rua'],
+            path: ['street.address'],
             type: "string",
             minimum: 1,
             inclusive: true,
             message: 'String must contain at least 1 character(s)'
           })
         }
-        if(!value.endereco.numero.length){
+        if(!value.street.number.length){
           contexo.addIssue({
-            path: ['endereco.numero'],
+            path: ['street.number'],
             type: "number",
             minimum: 1,
             inclusive: true,
             message: 'String must contain at least 1 character(s)'
           })
-        } else if(isNaN(value.endereco.numero)){
+        } else if(isNaN(value.street.number)){
           contexo.addIssue({
-            path: ['endereco.numero'],
+            path: ['street.number'],
             type: "number",
             inclusive: true,
             message: 'Expected number, received string'
           })
         }
-        if(!value.endereco.complemento.length){
+        if(!value.street.complement.length){
           contexo.addIssue({
-            path: ['endereco.complemento'],
+            path: ['street.complement'],
             type: "string",
             minimum: 1,
             inclusive: true,
@@ -67,7 +67,7 @@ export function useShemaForm(){
     }).transform(value => ({
       name: value.name,
       email: value.email,
-      endereco: value.campo ? value.endereco : '',
+      street: value.field ? value.street : '',
     }))
     
     return { dataSchema } 
