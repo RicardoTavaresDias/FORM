@@ -1,7 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useShemaForm } from './useShemaForm'
+import { api } from '../servers/api'
 
 export function useFormField(){
   const { dataSchema } = useShemaForm()
@@ -38,6 +39,21 @@ export function useFormField(){
   }
 
   const campo = watch('campo')
+
+  useEffect(() => {
+    async function streetCep(){
+      if(watch('endereco.cep')?.length === 8 && !isNaN(watch('endereco.cep'))){
+        console.log('entrou')
+        try {
+          const apiCep = await api.get(`/${watch('endereco.cep')}`)
+          setValue('endereco.rua', apiCep.data.street)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    }
+    streetCep()
+  },[watch('endereco.cep')])
 
   return {
     screm,

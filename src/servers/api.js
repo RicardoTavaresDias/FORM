@@ -1,5 +1,5 @@
 import axios, { Axios } from "axios";
 
 export const api = axios.create({
-  baseURL: 'http://localhost:3333'
+  baseURL: 'https://brasilapi.com.br/api/cep/v2'
 })

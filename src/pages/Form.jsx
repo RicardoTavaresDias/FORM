@@ -11,7 +11,7 @@ import { useFormField } from '../hooks/useFormField'
     [x] validação checkbox
     [] validação do select
     [x] novos inputs ao clicar no checkbox
-    [] a busca api e preencher alguns campos com endereço
+    [x] a busca api e preencher alguns campos com endereço
     [x] separar regra de negocio
   */
 
