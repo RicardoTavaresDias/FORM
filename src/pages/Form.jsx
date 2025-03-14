@@ -6,13 +6,14 @@ import { useFormField } from '../hooks/useFormField'
     [x] validação input com borda vermelho
     [x] o campo name com as primeiras letras maiusculas
     [x] value vazio apos envio do form
-    [] mascara do cep
+    [x] mascara do cep
     [] validação input data
     [x] validação checkbox
     [] validação do select
     [x] novos inputs ao clicar no checkbox
     [x] a busca api e preencher alguns campos com endereço
     [x] separar regra de negocio
+    [] Documentar para posibilitar consultas
   */
 
 export function Form() {

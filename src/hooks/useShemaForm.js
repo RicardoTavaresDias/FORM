@@ -19,14 +19,14 @@ export function useShemaForm(){
             type: "string",
             minimum: 1,
             inclusive: true,
-            message: 'String must contain at least 1 character(s)'
+            message: 'String must contain at least 1 number(s)'
           })
-        }else if(isNaN(value.endereco.cep)){
+        }else if(value.endereco.cep.length < 9){
           contexo.addIssue({
             path: ['endereco.cep'],
-            type: "number",
+            type: "string",
             inclusive: true,
-            message: 'Expected number, received string'
+            message: 'Number must contain at least 9 character(s)'
           })
         }
         if(!value.endereco.rua.length){

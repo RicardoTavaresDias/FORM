@@ -27,12 +27,12 @@ export function useFormField(){
     })
 
   const  onSubmit = async (data) => {
-    setValue('name')
-    setValue('email')
-    setValue('endereco.cep')
-    setValue('endereco.rua')
-    setValue('endereco.numero')
-    setValue('endereco.complemento')
+    setValue('name', '')
+    setValue('email', '')
+    setValue('endereco.cep', '')
+    setValue('endereco.rua', '')
+    setValue('endereco.numero', '')
+    setValue('endereco.complemento', '')
 
     await new Promise((resolve) => setTimeout(resolve, 2000))
     setScrem(JSON.stringify(data, null, 2))
@@ -42,10 +42,9 @@ export function useFormField(){
 
   useEffect(() => {
     async function streetCep(){
-      if(watch('endereco.cep')?.length === 8 && !isNaN(watch('endereco.cep'))){
-        console.log('entrou')
+      if(watch('endereco.cep')?.length === 9){
         try {
-          const apiCep = await api.get(`/${watch('endereco.cep')}`)
+          const apiCep = await api.get(`/${watch('endereco.cep').replace('-', '')}`)
           setValue('endereco.rua', apiCep.data.street)
         } catch (error) {
           console.log(error)
@@ -53,6 +52,11 @@ export function useFormField(){
       }
     }
     streetCep()
+  },[watch('endereco.cep')])
+
+  useEffect(() => {
+    const cepMask = watch('endereco.cep').replace(/\D/g, '').replace(/(\d{5})(\d)/, '$1-$2')
+    setValue('endereco.cep', cepMask)
   },[watch('endereco.cep')])
 
   return {
