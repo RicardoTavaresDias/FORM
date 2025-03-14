@@ -15,6 +15,8 @@ export function useFormField(){
       defaultValues: {
         name: '',
         email: '',
+        date: '',
+        access: '',
         field: false,
         street: {
           zipCode: '',
@@ -29,6 +31,8 @@ export function useFormField(){
   const  onSubmit = async (data) => {
     setValue('name', '')
     setValue('email', '')
+    setValue('date', '')
+    setValue('access', '')
     setValue('street.zipCode', '')
     setValue('street.address', '')
     setValue('street.number', '')
@@ -57,7 +61,11 @@ export function useFormField(){
   useEffect(() => {
     const zipCodeMask = watch('street.zipCode').replace(/\D/g, '').replace(/(\d{5})(\d)/, '$1-$2')
     setValue('street.zipCode', zipCodeMask)
-  },[watch('street.zipCode')])
+
+    const dateMask = watch('date').replace(/\D/g, '').replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3')
+    setValue('date', dateMask)
+
+  },[watch('street.zipCode'), watch('date')])
 
   return {
     screm,

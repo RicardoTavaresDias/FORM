@@ -4,6 +4,8 @@ export function useShemaForm(){
   const dataSchema = z.object({
       name: z.string().min(1).trim().transform(value => value.split(' ').map(word => word.slice(0, 1).toLocaleUpperCase() + word.slice(1, word.length)).join(' ')),
       email: z.string().email(),
+      date: z.string().min(8),
+      access: z.enum(['Member', 'Admin']),
       field: z.boolean(),
       street: z.object({
         zipCode: z.string().optional(),
@@ -67,6 +69,8 @@ export function useShemaForm(){
     }).transform(value => ({
       name: value.name,
       email: value.email,
+      date: value.date,
+      access: value.access,
       street: value.field ? value.street : '',
     }))
     

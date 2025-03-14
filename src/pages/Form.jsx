@@ -3,6 +3,8 @@ import { useFormField } from '../hooks/useFormField'
 import { Input } from '../components/Input'
 import { CheckBox } from '../components/CheckBox'
 import { Button } from '../components/Button'
+import { BoxInputs } from '../components/BoxInputs'
+import { Select } from '../components/Select'
 
   /*
    TREINO DE FORMULARIO DO BASICO AO AVANÇADO COM TODOS OS RECURSO ULTILIZADO
@@ -11,9 +13,9 @@ import { Button } from '../components/Button'
     [x] o field name com as primeiras letras maiusculas
     [x] value vazio apos envio do form
     [x] mascara do cep
-    [] validação input data
+    [x] validação input data
     [x] validação checkbox
-    [] validação do select
+    [x] validação do select
     [x] novos inputs ao clicar no checkbox
     [x] a busca api e preencher alguns fields com endereço
     [x] separar regra de negocio
@@ -26,27 +28,32 @@ export function Form() {
   
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} >
         <h3>Cadastro</h3>
-        <Input {...register('name')} type='text' errors={errors.name} placeholder='Nome' label='Nome' />
-        <Input {...register('email')} type='text' errors={errors.email} placeholder='email@email.com' label='Email' />
+        <Input {...register('name')} type='text' errors={errors.name} placeholder='Nome' >Nome</Input>
+        <Input {...register('email')} type='text' errors={errors.email} placeholder='email@email.com' >E-mail</Input>
+
+        <BoxInputs>
+          <Input {...register('date')} type='text' placeholder='__/__/____' id='box' errors={errors.date} maxLength='8' >Data</Input>
+          <Select {...register('access')} type='text' label="Acesso" id='box' errors={errors.access}>
+            <option disabled>Selecione...</option>
+            <option>Member</option>
+            <option>Admin</option>
+          </Select>
+        </BoxInputs>
 
         {/* <Street> */}
         <CheckBox {...register('field')}  label='Campos Adicionais' />
 
         {field && (
           <>
-            <div className="form-group" id='numbers'>
-              <div>
-                <Input {...register('street.zipCode')} type='text' errors={errors.street?.zipCode} placeholder='00000-000' label='CEP' maxLength='9' id='cep'/>
-              </div>
-              <div>
-                  <Input {...register('street.number')} type='text' errors={errors.street?.number} placeholder='Número' label='Número' id='number'/>
-              </div>
-            </div>
+            <BoxInputs>
+              <Input {...register('street.zipCode')} type='text' errors={errors.street?.zipCode} placeholder='00000-000' maxLength='9' id='box' >CEP</Input>
+              <Input {...register('street.number')} type='text' errors={errors.street?.number} placeholder='Número' id='box' >Número</Input>
+            </BoxInputs>
           
-            <Input {...register('street.address')} type='text' errors={errors.street?.address} placeholder='Endereço' label='Endereço' />
-            <Input {...register('street.complement')} type='text' errors={errors.street?.complement} placeholder='Complemento' label='Complemento' />
+            <Input {...register('street.address')} type='text' errors={errors.street?.address} placeholder='Endereço' >Endereço</Input>
+            <Input {...register('street.complement')} type='text' errors={errors.street?.complement} placeholder='Complemento' >Complemento</Input>
           </>
         )}
 
