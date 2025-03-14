@@ -1,5 +1,9 @@
 import { useFormField } from '../hooks/useFormField'
 
+import { Input } from '../components/Input'
+import { CheckBox } from '../components/CheckBox'
+import { Button } from '../components/Button'
+
   /*
    TREINO DE FORMULARIO DO BASICO AO AVANÇADO COM TODOS OS RECURSO ULTILIZADO
     [x] validação dos campos
@@ -14,6 +18,7 @@ import { useFormField } from '../hooks/useFormField'
     [x] a busca api e preencher alguns campos com endereço
     [x] separar regra de negocio
     [] Documentar para posibilitar consultas
+    [x] Criar components
   */
 
 export function Form() {
@@ -21,75 +26,36 @@ export function Form() {
   
   return (
     <>
-      <main>
         <form onSubmit={handleSubmit(onSubmit)}>
           <h3>Cadastro</h3>
-
-          <div className="form-group">
-            <label >Nome</label>
-            <input {...register('name')} type="text" className={errors.name ? "form-control border-danger" : "form-control"} placeholder="Nome" />
-          </div>
-
-          {errors.name && <p className='text-danger font-weight-normal'>{errors.name.message}</p>}
-          
-          <div className="form-group">
-            <label >Email</label >
-            <input {...register('email')} type="text" className={errors.email ? "form-control border-danger" : "form-control"} placeholder="email@email.com" />
-          </div>
-
-          {errors.email && <p className='text-danger font-weight-normal'>{errors.email.message}</p>}
+            <Input {...register('name')} type='text' errors={errors.name} placeholder='Nome' label='Nome' />
+            <Input {...register('email')} type='text' errors={errors.email} placeholder='email@email.com' label='Email' />
 
           {/* <ENDEREÇO> */}
-
-          <div className="form-check mb-3">
-            <input {...register('campo')} className="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-            <label className="form-check-label">
-               Campos Adicionais
-            </label>
-          </div>
+            <CheckBox {...register('campo')}  label='Campos Adicionais' />
 
           {campo && (
             <>
               <div className="form-group" id='numbers'>
                 <div>
-                  <label >CEP</label >
-                  <input {...register('endereco.cep')} type="text" className={errors.endereco?.cep ? "form-control border-danger" : "form-control"} placeholder="00000-000"  maxLength='9' id='cep' />
-
-                  {errors.endereco?.cep && <p className='text-danger font-weight-normal' id='text-error'>{errors.endereco?.cep.message}</p>}
+                  <Input {...register('endereco.cep')} type='text' errors={errors.endereco?.cep} placeholder='00000-000' label='CEP' maxLength='9' id='cep'/>
                 </div>
                 <div>
-                  <label >Numero</label>
-                  <input {...register('endereco.numero')} type="text" className={errors.endereco?.numero ? "form-control border-danger" : "form-control"} placeholder="Numero" id='number'/>
-
-                  {errors.endereco?.numero && <p className='text-danger font-weight-normal' id='text-error'>{errors.endereco?.numero.message}</p>}
+                  <Input {...register('endereco.numero')} type='text' errors={errors.endereco?.numero} placeholder='Número' label='Número' id='number'/>
                 </div>
                </div>
           
-
-              <div className="form-group">
-                <label >Rua</label>
-                <input {...register('endereco.rua')} type="text" className={errors.endereco?.rua ? "form-control border-danger" : "form-control"} placeholder="Rua" />
-              </div>
-
-              {errors.endereco?.rua && <p className='text-danger font-weight-normal'>{errors.endereco?.rua.message}</p>}
-
-              <div className="form-group">
-                <label >Complemento</label>
-                <input {...register('endereco.complemento')} type="text" className={errors.endereco?.complemento ? "form-control border-danger" : "form-control"} placeholder="Complemento" />
-              </div>
-
-              {errors.endereco?.complemento && <p className='text-danger font-weight-normal'>{errors.endereco.complemento?.message}</p>}
+               <Input {...register('endereco.rua')} type='text' errors={errors.endereco?.rua} placeholder='Endereço' label='Endereço' />
+               <Input {...register('endereco.complemento')} type='text' errors={errors.endereco?.complemento} placeholder='Complemento' label='Complemento' />
             </>
           )}
 
           {/* </ENDEREÇO> */}
 
-          <button type="submit" className="btn btn-primary" disabled={isSubmitting}>{isSubmitting ? 'Loading...' : 'Enviar'}</button>
+          <Button disabled={isSubmitting} >{isSubmitting ? 'Loading...' : 'Enviar'}</Button>
         </form>
-      </main>
       <div id='screm'>{screm}</div>
     </>
-    
   )
 }
 
