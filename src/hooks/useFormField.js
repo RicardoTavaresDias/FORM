@@ -8,7 +8,7 @@ export function useFormField(){
   const { dataSchema } = useShemaForm()
   const [screm, setScrem] = useState('')
 
-  const { register, handleSubmit, setValue, watch, formState: {errors, isSubmitting} } = useForm(
+  const { register, handleSubmit, setValue, reset, watch, formState: {errors, isSubmitting} } = useForm(
     { 
       // configuração de inicialização dos campos, criteriaMode e mode ficara assistindo toda ação do formulario
       criteriaMode: 'all',
@@ -35,14 +35,7 @@ export function useFormField(){
     await new Promise((resolve) => setTimeout(resolve, 2000))
     setScrem(JSON.stringify(data, null, 2))
 
-    setValue('name', '')
-    setValue('email', '')
-    setValue('date', '')
-    setValue('access', 'Selecione...')
-    setValue('street.zipCode', '')
-    setValue('street.address', '')
-    setValue('street.number', '')
-    setValue('street.complement', '')
+    reset()
   }
 
   // Observando qualquer ação do field

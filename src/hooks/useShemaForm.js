@@ -28,50 +28,34 @@ export function useShemaForm(){
         if(!value.street.zipCode.length){
           contexo.addIssue({
             path: ['street.zipCode'],
-            type: "string",
-            minimum: 1,
-            inclusive: true,
             message: 'String must contain at least 1 number(s)'
           })
         }else if(value.street.zipCode.length < 9){
           contexo.addIssue({
             path: ['street.zipCode'],
-            type: "string",
-            inclusive: true,
             message: 'Number must contain at least 9 character(s)'
           })
         }
         if(!value.street.address.length){
           contexo.addIssue({
             path: ['street.address'],
-            type: "string",
-            minimum: 1,
-            inclusive: true,
             message: 'String must contain at least 1 character(s)'
           })
         }
         if(!value.street.number.length){
           contexo.addIssue({
             path: ['street.number'],
-            type: "number",
-            minimum: 1,
-            inclusive: true,
             message: 'String must contain at least 1 character(s)'
           })
         } else if(isNaN(value.street.number)){
           contexo.addIssue({
             path: ['street.number'],
-            type: "number",
-            inclusive: true,
             message: 'Expected number, received string'
           })
         }
         if(!value.street.complement.length){
           contexo.addIssue({
             path: ['street.complement'],
-            type: "string",
-            minimum: 1,
-            inclusive: true,
             message: 'String must contain at least 1 character(s)'
           })
         } 
