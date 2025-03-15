@@ -29,6 +29,9 @@ export function useFormField(){
     })
 
   const  onSubmit = async (data) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000))
+    setScrem(JSON.stringify(data, null, 2))
+
     setValue('name', '')
     setValue('email', '')
     setValue('date', '')
@@ -37,9 +40,6 @@ export function useFormField(){
     setValue('street.address', '')
     setValue('street.number', '')
     setValue('street.complement', '')
-
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    setScrem(JSON.stringify(data, null, 2))
   }
 
   const field = watch('field')
