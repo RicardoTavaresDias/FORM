@@ -10,6 +10,7 @@ export function useFormField(){
 
   const { register, handleSubmit, setValue, watch, formState: {errors, isSubmitting} } = useForm(
     { 
+      // configuração de inicialização dos campos, criteriaMode e mode ficara assistindo toda ação do formulario
       criteriaMode: 'all',
       mode: 'all',
       defaultValues: {
@@ -25,9 +26,11 @@ export function useFormField(){
           complement: ''
         }
       },
+      // realizará validação dos campos com Shema zod
       resolver: zodResolver(dataSchema),
     })
 
+    // função de envio do formulario e atualizar os campos para vazio para novo preenchimento dos campos
   const  onSubmit = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 2000))
     setScrem(JSON.stringify(data, null, 2))
@@ -42,8 +45,10 @@ export function useFormField(){
     setValue('street.complement', '')
   }
 
+  // Observando qualquer ação do field
   const field = watch('field')
 
+  // função buscar na api CEP externo o endereço pelo digitação do campo cep e removendo o traço no meio enviando 00000000
   useEffect(() => {
     async function streetZipCode(){
       if(watch('street.zipCode')?.length === 9){
@@ -58,6 +63,7 @@ export function useFormField(){
     streetZipCode()
   },[watch('street.zipCode')])
 
+  // função para formatação com mascara do cep e data, exemplo data: 15/03/2025, cep: 04459-000
   useEffect(() => {
     const zipCodeMask = watch('street.zipCode').replace(/\D/g, '').replace(/(\d{5})(\d)/, '$1-$2')
     setValue('street.zipCode', zipCodeMask)

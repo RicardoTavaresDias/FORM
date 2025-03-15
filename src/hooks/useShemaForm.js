@@ -1,7 +1,11 @@
 import { z } from 'zod'
 
 export function useShemaForm(){
+
+  // Validação dos campos do formulario
   const dataSchema = z.object({
+    
+    // Pega primeira letra de cada palavra e inclui letra Maiuscula
       name: z.string().min(1).trim().transform(value => value.split(' ').map(word => word.slice(0, 1).toLocaleUpperCase() + word.slice(1, word.length)).join(' ')),
       email: z.string().email(),
       date: z.string().min(8),
@@ -13,6 +17,12 @@ export function useShemaForm(){
         number: z.string().optional(),
         complement: z.string().optional()
       })
+
+      // Validação dos campos não obrigatorios, só valida quando o fomulario endereço é aberto, aqui a validação é individual
+      // value.field - verifica se o campo field esta true (aberto)
+      // value.street.zipCode.length - verifica se o campo esta preenchido
+      // isNaN(value.street.number) - verifica se o campo é nuúmero
+
     }).superRefine((value, contexo) => {
       if(value.field){
         if(!value.street.zipCode.length){
@@ -66,6 +76,8 @@ export function useShemaForm(){
           })
         } 
       }   
+
+      // Tratamento quais campos será enviado e validado, stree so vai ser validado e enviado se existir
     }).transform(value => ({
       name: value.name,
       email: value.email,

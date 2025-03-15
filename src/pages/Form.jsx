@@ -6,23 +6,6 @@ import { Button } from '../components/Button'
 import { BoxInputs } from '../components/BoxInputs'
 import { Select } from '../components/Select'
 
-  /*
-   TREINO DE FORMULARIO DO BASICO AO AVANÇADO COM TODOS OS RECURSO ULTILIZADO
-    [x] validação dos fields
-    [x] validação input com borda vermelho
-    [x] o field name com as primeiras letras maiusculas
-    [x] value vazio apos envio do form
-    [x] mascara do cep
-    [x] validação input data
-    [x] validação checkbox
-    [x] validação do select
-    [x] novos inputs ao clicar no checkbox
-    [x] a busca api e preencher alguns fields com endereço
-    [x] separar regra de negocio
-    [] Documentar para posibilitar consultas
-    [x] Criar components
-  */
-
 export function Form() {
   const { screm, register, handleSubmit, errors, isSubmitting, field, onSubmit } = useFormField()
   
