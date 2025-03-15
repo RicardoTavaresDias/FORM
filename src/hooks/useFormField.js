@@ -16,7 +16,7 @@ export function useFormField(){
         name: '',
         email: '',
         date: '',
-        access: '',
+        access: 'Selecione...',
         field: false,
         street: {
           zipCode: '',
@@ -32,7 +32,7 @@ export function useFormField(){
     setValue('name', '')
     setValue('email', '')
     setValue('date', '')
-    setValue('access', '')
+    setValue('access', 'Selecione...')
     setValue('street.zipCode', '')
     setValue('street.address', '')
     setValue('street.number', '')
