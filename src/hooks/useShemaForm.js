@@ -1,4 +1,4 @@
-import { isValid, number, z } from 'zod'
+import { z } from 'zod'
 
 export function useShemaForm(){
 
@@ -6,11 +6,11 @@ export function useShemaForm(){
   const dataSchema = z.object({
     
     // Pega primeira letra de cada palavra e inclui letra Maiuscula
-      name: z.string().min(1).trim().transform(value => value.split(' ').map(word => word.slice(0, 1).toLocaleUpperCase() + word.slice(1, word.length)).join(' ')),
-      email: z.string().email(),
+      name: z.string().min(1, { message: 'Campo Obrigatório'}).trim().transform(value => value.split(' ').map(word => word.slice(0, 1).toLocaleUpperCase() + word.slice(1, word.length)).join(' ')),
+      email: z.string().email({message: 'E-mail inválido'}),
 
       // Refinando data manualmente
-      date: z.string().min(8).refine((value) => {
+      date: z.string().min(8, {message: 'Data mínimo 8 números'}).refine((value) => {
         if(value.slice(0,2) > 31){
           return false
         }
@@ -21,9 +21,9 @@ export function useShemaForm(){
           return false
         }
         return true
-      }, 'Invalid date'),
+      }, 'Data inválido'),
       
-      access: z.enum(['Member', 'Admin']),
+      access: z.enum(['Member', 'Admin'], {message: 'Campo obrigatório, selecionar 1 opção'}),
       field: z.boolean(),
       street: z.object({
         zipCode: z.string().optional(),
@@ -42,35 +42,35 @@ export function useShemaForm(){
         if(!value.street.zipCode.length){
           contexo.addIssue({
             path: ['street.zipCode'],
-            message: 'String must contain at least 1 number(s)'
+            message: 'Campo Obrigatório'
           })
         }else if(value.street.zipCode.length < 9){
           contexo.addIssue({
             path: ['street.zipCode'],
-            message: 'Number must contain at least 9 character(s)'
+            message: 'Campo mínimo de 9 digitos'
           })
         }
         if(!value.street.address.length){
           contexo.addIssue({
             path: ['street.address'],
-            message: 'String must contain at least 1 character(s)'
+            message: 'Campo Obrigatório'
           })
         }
         if(!value.street.number.length){
           contexo.addIssue({
             path: ['street.number'],
-            message: 'String must contain at least 1 character(s)'
+            message: 'Campo Obrigatório'
           })
         } else if(isNaN(value.street.number)){
           contexo.addIssue({
             path: ['street.number'],
-            message: 'Expected number, received string'
+            message: 'Campo somente número'
           })
         }
         if(!value.street.complement.length){
           contexo.addIssue({
             path: ['street.complement'],
-            message: 'String must contain at least 1 character(s)'
+            message: 'Campo Obrigatório'
           })
         } 
       }   
