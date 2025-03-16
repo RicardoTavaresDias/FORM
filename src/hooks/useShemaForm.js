@@ -11,15 +11,17 @@ export function useShemaForm(){
 
       // Refinando data manualmente
       date: z.string().min(8, {message: 'Data mínimo 8 números'}).refine((value) => {
-        if(value.slice(0,2) > 31){
+        if((value.slice(0,2) > 31) || 
+          (value.slice(3,5) > 12) || 
+          (value.slice(6,10) > new Date().getFullYear()) || 
+          (value.slice(6,10) < (new Date().getFullYear() - 100))
+        ){
           return false
-        }
-        if(value.slice(3,5) > 12){
-          return false
-        }
-        if (value.slice(6,10) > new Date().getFullYear() || value.slice(6,10) < (new Date().getFullYear() - 100)){
-          return false
-        }
+        } 
+
+        if(value.slice(3,5) === '02')
+          if(value.slice(0,2) > 29) return false
+        
         return true
       }, 'Data inválido'),
       
