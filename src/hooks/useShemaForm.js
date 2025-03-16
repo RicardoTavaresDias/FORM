@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { isValid, number, z } from 'zod'
 
 export function useShemaForm(){
 
@@ -8,7 +8,21 @@ export function useShemaForm(){
     // Pega primeira letra de cada palavra e inclui letra Maiuscula
       name: z.string().min(1).trim().transform(value => value.split(' ').map(word => word.slice(0, 1).toLocaleUpperCase() + word.slice(1, word.length)).join(' ')),
       email: z.string().email(),
-      date: z.string().min(8),
+
+      // Refinando data manualmente
+      date: z.string().min(8).refine((value) => {
+        if(value.slice(0,2) > 31){
+          return false
+        }
+        if(value.slice(3,5) > 12){
+          return false
+        }
+        if (value.slice(6,10) > new Date().getFullYear() || value.slice(6,10) < (new Date().getFullYear() - 100)){
+          return false
+        }
+        return true
+      }, 'Invalid date'),
+      
       access: z.enum(['Member', 'Admin']),
       field: z.boolean(),
       street: z.object({

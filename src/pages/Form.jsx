@@ -17,7 +17,7 @@ export function Form() {
         <Input {...register('email')} type='text' errors={errors.email} placeholder='email@email.com' >E-mail</Input>
 
         <BoxInputs>
-          <Input {...register('date')} type='text' placeholder='__/__/____' id='box' errors={errors.date} maxLength='8' >Data</Input>
+          <Input {...register('date')} type='text' placeholder='__/__/____' id='box' errors={errors.date} maxLength='8' >Data Nascimento</Input>
           <Select {...register('access')} type='text' label="Acesso" id='box' errors={errors.access}>
             <option disabled>Selecione...</option>
             <option>Member</option>
