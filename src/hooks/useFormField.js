@@ -46,8 +46,8 @@ export function useFormField(){
     async function streetZipCode(){
       if(watch('street.zipCode')?.length === 9){
         try {
-          const apiZipCode = await api.get(`/${watch('street.zipCode').replace('-', '')}`)
-          setValue('street.address', apiZipCode.data.street)
+          const apiZipCode = await api.get(`/${watch('street.zipCode').replace('-', '')}/json`)
+          setValue('street.address', apiZipCode.data.logradouro)
         } catch (error) {
           console.log(error)
         }
