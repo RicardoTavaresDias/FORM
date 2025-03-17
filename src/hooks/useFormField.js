@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useState, useEffect } from 'react'
 import { useShemaForm } from './useShemaForm'
 import { api } from '../servers/api'
+import { toast } from 'react-hot-toast'
 
 export function useFormField(){
   const { dataSchema } = useShemaForm()
@@ -32,10 +33,16 @@ export function useFormField(){
 
     // função de envio do formulario e atualizar os campos para vazio para novo preenchimento dos campos
   const  onSubmit = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    setScrem(JSON.stringify(data, null, 2))
-
-    reset()
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+      setScrem(JSON.stringify(data, null, 2))
+      
+      reset()
+      toast.success('Usuário cadastrado com Sucesso')
+    } catch (error) {
+      console.log(error)
+      toast.error('Erro ao cadastrar usuário')
+    }
   }
 
   // Observando qualquer ação do field
@@ -50,6 +57,7 @@ export function useFormField(){
           setValue('street.address', apiZipCode.data.logradouro)
         } catch (error) {
           console.log(error)
+          toast.error('Endereço não encontrado')
         }
       }
     }
