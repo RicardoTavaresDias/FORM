@@ -1,15 +1,19 @@
-import { BrowserRouter } from "react-router"
-import { Form } from './pages/Form'
-import { Toaster } from "react-hot-toast"
+import { BrowserRouter } from "react-router";
+import { Form } from "./pages/Form";
+import { Toaster } from "react-hot-toast";
+
+import { useAlert } from "./hooks/useAlert";
+import { Alert } from "./components/Alert";
 
 function App() {
+  const { close } = useAlert();
+
   return (
     <BrowserRouter>
-      {/* Toaster - é a messagem que aparece na tela confirmação ou erro  */}
-      <Toaster />
+      {close && <Alert />}
       <Form />
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -5,9 +5,13 @@ import { useShemaForm } from './useShemaForm'
 import { api } from '../servers/api'
 import { toast } from 'react-hot-toast'
 
+import { useAlert } from './useAlert'
+
 export function useFormField(){
   const { dataSchema } = useShemaForm()
   const [screm, setScrem] = useState('')
+
+  const{ openAlert } = useAlert()
 
   const { register, handleSubmit, setValue, reset, watch, formState: {errors, isSubmitting} } = useForm(
     { 
@@ -38,10 +42,10 @@ export function useFormField(){
       setScrem(JSON.stringify(data, null, 2))
       
       reset()
-      toast.success('Usuário cadastrado com Sucesso')
+      openAlert({ message: 'Usuário cadastrado com Sucesso', type: 'success' })
     } catch (error) {
       console.log(error)
-      toast.error('Erro ao cadastrar usuário')
+      openAlert({ message: 'Erro ao cadastrar usuário', type: 'danger' })
     }
   }
 
