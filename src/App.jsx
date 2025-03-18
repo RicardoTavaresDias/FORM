@@ -1,6 +1,5 @@
 import { BrowserRouter } from "react-router";
 import { Form } from "./pages/Form";
-import { Toaster } from "react-hot-toast";
 
 import { useAlert } from "./hooks/useAlert";
 import { Alert } from "./components/Alert";

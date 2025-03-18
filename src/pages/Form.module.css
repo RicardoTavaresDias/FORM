@@ -1,0 +1,30 @@
+.form-control {
+  width: 400px;
+}
+
+form {
+  margin: 40px auto;
+  width: 488px;
+  border: solid #e2e2e2;
+  padding: 25px 40px;
+  border-radius: 14px;
+  position: relative;
+}
+
+h3{
+  margin-bottom: 30px;
+}
+
+.screm {
+  width: 320px;
+  text-align: center;
+  margin: 20px auto;
+}
+
+#box {
+  width: 190px;
+}
+
+button {
+  width: 100%;
+}

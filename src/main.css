@@ -9,22 +9,6 @@ img {
   height: 100vh;
 }
 
-.form-control {
-  width: 400px;
-}
-
-form {
-  margin: 40px auto;
-  width: 488px;
-  border: solid #e2e2e2;
-  padding: 25px 40px;
-  border-radius: 14px;
-}
-
-h3{
-  margin-bottom: 30px;
-}
-
 a {
   font-weight: 500;
   text-decoration: none;
@@ -34,57 +18,5 @@ h5 {
   margin-block: 10px;
 }
 
-#screm {
-  width: 320px;
-  text-align: center;
-  margin: 20px auto;
-}
 
-#box {
-  width: 190px;
-}
 
-#numbers{
-  width: 200px;
-  display: flex;
-  gap: 19px;
-}
-
-#text-error{
-  width: 190px;
-}
-
-button {
-  width: 100%;
-}
-
-.alert{
-  width: 600px;
-  margin-inline: auto 20px;
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-inline: 20px;
-  animation: anime 0.6s linear forwards;
-}
-
-.alert a {
-  text-decoration: none;
-  color: rgba(10, 28, 233, 0.899);
-}
-
-.alert .close{
-  width: min-content;
-}
-
-@keyframes anime {
-  0% {
-    opacity: 0;
-    transform: translateY(-100px);
-  } 50% {
-    transform: translateY(-50);
-  } 100%  {
-    transform: translateY(0px);
-  }
-}

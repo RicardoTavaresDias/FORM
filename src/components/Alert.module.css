@@ -1,0 +1,48 @@
+#alert{
+  width: 600px;
+  margin-inline: auto 20px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 20px;
+  animation: anime 0.6s linear forwards;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#alert a {
+  text-decoration: none;
+  color: rgba(10, 28, 233, 0.899);
+}
+
+#alert .close{
+  width: min-content;
+}
+
+button {
+  color: rgba(0, 0, 0, 0.359);
+  font-weight: 800;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px; 
+}
+
+button:hover {
+  color: rgb(71, 69, 69);
+}
+
+@keyframes anime {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px);
+  } 50% {
+    transform: translateY(-50);
+  } 100%  {
+    transform: translateY(0px);
+  }
+}
