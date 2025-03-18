@@ -41,7 +41,7 @@ export function useShemaForm(){
 
     }).superRefine((value, contexo) => {
       if(value.field){
-        if(!value.street.zipCode.length){
+        if(!value.street.zipCode){
           contexo.addIssue({
             path: ['street.zipCode'],
             message: 'Campo Obrigatório'
@@ -52,13 +52,13 @@ export function useShemaForm(){
             message: 'Campo mínimo de 9 digitos'
           })
         }
-        if(!value.street.address.length){
+        if(!value.street.address){
           contexo.addIssue({
             path: ['street.address'],
             message: 'Campo Obrigatório'
           })
         }
-        if(!value.street.number.length){
+        if(!value.street.number){
           contexo.addIssue({
             path: ['street.number'],
             message: 'Campo Obrigatório'
@@ -69,7 +69,7 @@ export function useShemaForm(){
             message: 'Campo somente número'
           })
         }
-        if(!value.street.complement.length){
+        if(!value.street.complement){
           contexo.addIssue({
             path: ['street.complement'],
             message: 'Campo Obrigatório'

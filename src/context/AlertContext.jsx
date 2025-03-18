@@ -12,7 +12,6 @@ export function AlertProvider({children}){
     setMessage({ value })
   }
 
- console.log(close)
   return(
     <AlertContext.Provider value={{ close, openAlert, message, setClose }}>
       {children}

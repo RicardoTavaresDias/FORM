@@ -61,7 +61,7 @@ export function useFormField(){
           setValue('street.address', apiZipCode.data.logradouro)
         } catch (error) {
           console.log(error)
-          toast.error('Endereço não encontrado')
+          openAlert({ message: error, type:'danger' })
         }
       }
     }
