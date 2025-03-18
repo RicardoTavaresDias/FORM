@@ -1,4 +1,4 @@
-#alert{
+.alert{
   width: 600px;
   margin-inline: auto 20px;
   margin-top: 20px;
@@ -6,37 +6,41 @@
   justify-content: space-between;
   align-items: center;
   padding-inline: 20px;
-  animation: anime 0.6s linear forwards;
   position: absolute;
+  z-index: 1;
   top: 0;
   left: 0;
   right: 0;
 }
 
-#alert a {
+.alert a {
   text-decoration: none;
   color: rgba(10, 28, 233, 0.899);
 }
 
-#alert .close{
+.alert button {
   width: min-content;
-}
-
-button {
-  color: rgba(0, 0, 0, 0.359);
+  color: rgba(0, 0, 0, 0.593);
   font-weight: 800;
   border: none;
-  background-color: transparent;
   cursor: pointer;
   text-align: center;
   font-size: 14px; 
 }
 
-button:hover {
+.alert button:hover {
   color: rgb(71, 69, 69);
 }
 
-@keyframes anime {
+#open {
+  animation: fadeIn 0.5s linear forwards, fadeIn 0.5s linear alternate-reverse forwards 5s;
+}
+
+#close {
+  animation: fadeOut 0.5s linear forwards;
+}
+
+@keyframes fadeIn {
   0% {
     opacity: 0;
     transform: translateY(-100px);
@@ -44,5 +48,18 @@ button:hover {
     transform: translateY(-50);
   } 100%  {
     transform: translateY(0px);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-50px);
+  }
+  100% {
+    transform: translateY(-100px);
   }
 }

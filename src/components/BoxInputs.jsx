@@ -1,8 +1,8 @@
-import styles from './BoxInputs.module.css'
+import './BoxInputs-module.css'
 
 export function BoxInputs({children, ...props}){
   return (
-    <div className="form-group" id={styles.numbers} {...props}>
+    <div className="form-group" id='numbers' {...props}>
       {children}
     </div>
   )

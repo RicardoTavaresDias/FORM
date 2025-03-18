@@ -1,4 +1,4 @@
-import styles from './Form.module.css'
+import './Form-module.css'
 import { useFormField } from '../hooks/useFormField'
 
 import { Input } from '../components/Input'
@@ -18,8 +18,8 @@ export function Form() {
         <Input {...register('email')} type='text' errors={errors.email} placeholder='email@email.com' >E-mail</Input>
 
         <BoxInputs>
-          <Input {...register('date')} type='text' placeholder='__/__/____' id={styles.box} errors={errors.date} maxLength='8' >Data Nascimento</Input>
-          <Select {...register('access')} type='text' label="Acesso" id={styles.box} errors={errors.access}>
+          <Input {...register('date')} type='text' placeholder='__/__/____' id='box' errors={errors.date} maxLength='8' >Data Nascimento</Input>
+          <Select {...register('access')} type='text' label="Acesso" id='box' errors={errors.access}>
             <option disabled>Selecione...</option>
             <option>Member</option>
             <option>Admin</option>
@@ -32,8 +32,8 @@ export function Form() {
         {field && (
           <>
             <BoxInputs>
-              <Input {...register('street.zipCode')} type='text' errors={errors.street?.zipCode} placeholder='00000-000' maxLength='9' id={styles.box} >CEP</Input>
-              <Input {...register('street.number')} type='text' errors={errors.street?.number} placeholder='Número' id={styles.box} >Número</Input>
+              <Input {...register('street.zipCode')} type='text' errors={errors.street?.zipCode} placeholder='00000-000' maxLength='9' id='box' >CEP</Input>
+              <Input {...register('street.number')} type='text' errors={errors.street?.number} placeholder='Número' id='box' >Número</Input>
             </BoxInputs>
           
             <Input {...register('street.address')} type='text' errors={errors.street?.address} placeholder='Endereço' >Endereço</Input>
@@ -45,7 +45,7 @@ export function Form() {
 
         <Button disabled={isSubmitting} >{isSubmitting ? 'Loading...' : 'Enviar'}</Button>
       </form>
-      <div className={styles.screm}>{screm}</div>
+      <div className='screm'>{screm}</div>
     </>
   )
 }
