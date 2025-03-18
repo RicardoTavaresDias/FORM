@@ -14,7 +14,7 @@ export function Alert(){
 
   return (
     <div className={"alert alert-" + message.value.type} role="alert" id={show ? 'open' : 'close'}>
-      {message.value.message}
+      <span>{message.value.message}</span>
       <button type="button" className='close' onClick={() => setShow(false)} >
         ✕
       </button>

@@ -1,5 +1,5 @@
 .alert{
-  width: 600px;
+  width: 470px;
   margin-inline: auto 20px;
   margin-top: 20px;
   display: flex;
@@ -30,6 +30,10 @@
 
 .alert button:hover {
   color: rgb(71, 69, 69);
+}
+
+.alert span {
+  width: 400px;
 }
 
 #open {
