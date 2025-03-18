@@ -1,5 +1,5 @@
 import './Alert-module.css'
-import { useAlert } from '../hooks/useAlert'
+import { useAlert } from '../context/AlertContext'
 import { useState, useEffect } from 'react'
 
 export function Alert(){
