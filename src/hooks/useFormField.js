@@ -51,11 +51,12 @@ export function useFormField(){
   const field = watch('field')
 
   // função buscar na api CEP externo o endereço pelo digitação do campo cep e removendo o traço no meio enviando 00000000
-  const fetchApiCep = useCallback(async () => {
+  const fetchApiCep = (async () => {
     if(watch('street.zipCode')?.length === 9){
       try {
         const apiZipCode = await api.get(`/${watch('street.zipCode').replace('-', '')}/json`)
         setValue('street.address', apiZipCode.data.logradouro)
+        console.log('apicep')
       } catch (error) {
         console.log(error)
         openAlert({ message: error, type:'danger' })
