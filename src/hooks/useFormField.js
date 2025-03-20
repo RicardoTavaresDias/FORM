@@ -56,7 +56,6 @@ export function useFormField(){
       try {
         const apiZipCode = await api.get(`/${watch('street.zipCode').replace('-', '')}/json`)
         setValue('street.address', apiZipCode.data.logradouro)
-        console.log('apicep')
       } catch (error) {
         console.log(error)
         openAlert({ message: error, type:'danger' })
