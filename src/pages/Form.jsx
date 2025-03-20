@@ -8,7 +8,7 @@ import { BoxInputs } from '../components/BoxInputs'
 import { Select } from '../components/Select'
 
 export function Form() {
-  const { screm, register, handleSubmit, errors, isSubmitting, field, onSubmit } = useFormField()
+  const { formatDataString, register, handleSubmit, errors, isSubmitting, field, onSubmit } = useFormField()
   
   return (
     <>
@@ -45,7 +45,7 @@ export function Form() {
 
         <Button disabled={isSubmitting} >{isSubmitting ? 'Loading...' : 'Enviar'}</Button>
       </form>
-      <div className='screm'>{screm}</div>
+      <div className='screm'>{formatDataString}</div>
     </>
   )
 }
